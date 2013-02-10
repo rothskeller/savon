@@ -86,7 +86,8 @@ module Savon
 
       # Returns the SOAP response XML.
       def to_xml
-        http.body
+        # STR patch to skip multipart headers
+        http.body.sub(/\A.*<\?/m, '<?')
       end
 
       # Returns a <tt>Nokogiri::XML::Document</tt> for the SOAP response XML.
